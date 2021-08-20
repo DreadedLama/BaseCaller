@@ -25,7 +25,7 @@ dependencies:
     sdk: flutter
   permission_handler: ^8.1.4+2
   contacts_service: ^0.6.1
-  root_access: ^1.0.4
+#  root_access: ^1.0.4
 
 
 dev_dependencies:
