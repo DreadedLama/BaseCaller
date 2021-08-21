@@ -25,7 +25,8 @@ dependencies:
     sdk: flutter
   permission_handler: ^8.1.4+2
   contacts_service: ^0.6.1
-#  root_access: ^1.0.4
+  easy_dynamic_theme: ^2.2.0
+  http: ^0.13.3
 
 
 dev_dependencies:

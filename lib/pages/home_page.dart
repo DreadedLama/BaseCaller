@@ -1,4 +1,5 @@
 import 'package:base_caller/utils/routes.dart';
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomeState extends State<HomePage> {
   bool changedButton = false;
+  bool darkTheme = false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +73,21 @@ class _HomeState extends State<HomePage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 50),
+                CheckboxListTile(
+                  title: Text("Dark Theme"),
+                  value: this.darkTheme,
+                  onChanged: (bool? value) async {
+                    setState(() {
+                      this.darkTheme = value!;
+                      EasyDynamicTheme.of(context)
+                          .changeTheme(dynamic: false, dark: value);
+                    });
+                  },
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
