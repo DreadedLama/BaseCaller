@@ -5,16 +5,16 @@ import 'package:http/http.dart' as http;
 
 
 class MyHttpCalls {
-  static Future<String> fetchDetails() async {
+  static Future<String> fetchDetails(String mobileNumber, String token) async {
     final response = await http.get(
-      Uri.parse('https://webapi-noneu.truecaller.com/search?countryCode=in&q='+mobNumber),
+      Uri.parse('https://webapi-noneu.truecaller.com/search?countryCode=in&q='+mobileNumber),
       // Send authorization headers to the backend.
       headers: {
         HttpHeaders.authorizationHeader:
         'Bearer '+token,
       },
     );
-    // print('response = ' + response.body);
+    print('response = ' + response.body);
     // final responseJson = jsonDecode(response.body);
     return response.body;
   }

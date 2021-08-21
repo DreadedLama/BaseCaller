@@ -29,7 +29,7 @@ class _HomePageState extends State<MyApp> {
       themeMode: EasyDynamicTheme.of(context).themeMode,
       routes: {
         MyRoutes.welcomeRoute: (context) => HomePage(),
-        MyRoutes.homeRoute: (context) => MainPage().build(context),
+        MyRoutes.homeRoute: (context) => MainPage(),
       },
     );
   }

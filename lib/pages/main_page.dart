@@ -8,14 +8,24 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../main.dart';
 
-class MainPage extends State<MyApp> {
+class MainPage extends StatefulWidget {
+  @override
+  _MainPage createState() => _MainPage();
+}
+
+class _MainPage extends State<MainPage> {
   bool value = false;
   String httpCallResponse = '';
+  String mobNumber = '';
 
   @override
   Widget build(BuildContext context) {
-    MyHttpCalls.fetchDetails()
-        .then((response) => this.httpCallResponse = response);
+
+    // if(mobNumber.length==10) {
+    //   MyHttpCalls.fetchDetails(mobNumber,
+    //       token)
+    //       .then((response) => this.httpCallResponse = response);
+    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -35,6 +45,10 @@ class MainPage extends State<MyApp> {
                     border: OutlineInputBorder(),
                     hintText: 'Search',
                   ),
+                  onChanged: (value) {
+                    this.mobNumber = value;
+                    setState(() {});
+                  },
                 ),
                 SizedBox(height: 10),
                 CheckboxListTile(
@@ -62,7 +76,8 @@ class MainPage extends State<MyApp> {
                   },
                 ),
                 FutureBuilder<String>(
-                  future: MyHttpCalls.fetchDetails(),
+                  future: (mobNumber.length == 10)?
+                  MyHttpCalls.fetchDetails(mobNumber,"token"):null,
                   builder:
                       (BuildContext context, AsyncSnapshot<String> snapshot) {
                     if (!snapshot.hasData) {

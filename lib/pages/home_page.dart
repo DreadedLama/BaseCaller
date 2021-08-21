@@ -16,79 +16,81 @@ class _HomeState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 150,
-          ),
-          Text("Welcome",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              )),
-          SizedBox(
-            height: 50,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Truecaller Auth Token",
-                    labelText: "Token",
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Material(
-                  color: Colors.blueAccent,
-                  borderRadius: BorderRadius.circular(changedButton ? 40 : 8),
-                  child: InkWell(
-                    onTap: () async {
-                      setState(() {
-                        changedButton = true;
-                      });
-                      await Future.delayed(Duration(seconds: 1));
-                      await Navigator.pushNamed(context, MyRoutes.homeRoute);
-                      setState(() {
-                        changedButton = false;
-                      });
-                    },
-                    child: AnimatedContainer(
-                      duration: Duration(seconds: 1),
-                      width: changedButton ? 40 : 120,
-                      height: 40,
-                      alignment: Alignment.center,
-                      child: changedButton
-                          ? Icon(Icons.done)
-                          : Text(
-                              "Next",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
-                            ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 150,
+            ),
+            Text("Welcome",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                )),
+            SizedBox(
+              height: 50,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Truecaller Auth Token",
+                      labelText: "Token",
                     ),
                   ),
-                ),
-                SizedBox(height: 50),
-                CheckboxListTile(
-                  title: Text("Dark Theme"),
-                  value: this.darkTheme,
-                  onChanged: (bool? value) async {
-                    setState(() {
-                      this.darkTheme = value!;
-                      EasyDynamicTheme.of(context)
-                          .changeTheme(dynamic: false, dark: value);
-                    });
-                  },
-                ),
-              ],
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Material(
+                    color: Colors.blueAccent,
+                    borderRadius: BorderRadius.circular(changedButton ? 40 : 8),
+                    child: InkWell(
+                      onTap: () async {
+                        setState(() {
+                          changedButton = true;
+                        });
+                        await Future.delayed(Duration(seconds: 1));
+                        await Navigator.pushNamed(context, MyRoutes.homeRoute);
+                        setState(() {
+                          changedButton = false;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 1),
+                        width: changedButton ? 40 : 120,
+                        height: 40,
+                        alignment: Alignment.center,
+                        child: changedButton
+                            ? Icon(Icons.done)
+                            : Text(
+                                "Next",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                              ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                  CheckboxListTile(
+                    title: Text("Dark Theme"),
+                    value: this.darkTheme,
+                    onChanged: (bool? value) async {
+                      setState(() {
+                        this.darkTheme = value!;
+                        EasyDynamicTheme.of(context)
+                            .changeTheme(dynamic: false, dark: value);
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
