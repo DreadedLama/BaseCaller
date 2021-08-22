@@ -1,12 +1,12 @@
 import 'package:base_caller/utils/routes.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _MainPage createState() => _MainPage();
 }
 
-class _HomeState extends State<HomePage> {
+class _MainPage extends State<MainPage> {
   bool changedButton = false;
   TextEditingController tokenController = new TextEditingController();
   final _formKey = GlobalKey<FormState>();

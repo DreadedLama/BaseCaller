@@ -5,12 +5,12 @@ import 'package:base_caller/widgets/drawer.dart';
 import 'package:base_caller/widgets/httpCall.dart';
 import 'package:flutter/material.dart';
 
-class MainPage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _MainPage createState() => _MainPage();
+  _HomePage createState() => _HomePage();
 }
 
-class _MainPage extends State<MainPage> {
+class _HomePage extends State<HomePage> {
   String mobNumber = '';
   String searchNumber = 'N';
 
@@ -76,17 +76,21 @@ class _MainPage extends State<MainPage> {
                                 children: [
                                   CircleAvatar(
                                     radius: 60.0,
-                                    backgroundImage:(response.image != null)?
-                                        NetworkImage(response.image.toString()):null,
+                                    backgroundImage: (response.image != null)
+                                        ? NetworkImage(
+                                            response.image.toString())
+                                        : null,
                                   ),
                                   SizedBox(height: 50),
                                   Text('Name - ${response.name}'),
                                   SizedBox(height: 50),
-                                  Text('Number - ${response.phone!.number}, ${response.phone!.info}'),
+                                  Text(
+                                      'Number - ${response.phone!.number}, ${response.phone!.info}'),
                                   SizedBox(height: 50),
                                   Text('Email - ${response.email!.email}'),
                                   SizedBox(height: 50),
-                                  Text('Location - ${response.address!.address}')
+                                  Text(
+                                      'Location - ${response.address!.address}')
                                 ],
                               ),
                             ),
