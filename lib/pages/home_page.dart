@@ -1,114 +1,87 @@
-import 'package:base_caller/utils/routes.dart';
-import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
+import 'dart:convert';
+
+import 'package:base_caller/widgets/drawer.dart';
+import 'package:base_caller/widgets/httpCall.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _MainPage createState() => _MainPage();
 }
 
-class _HomeState extends State<HomePage> {
-  bool changedButton = false;
-  bool darkTheme = false;
-  TextEditingController tokenController = new TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-
-  moveToMain(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        changedButton = true;
-      });
-      await Future.delayed(Duration(seconds: 1));
-      await Navigator.pushNamed(context, MyRoutes.homeRoute,
-          arguments: tokenController.text);
-      setState(() {
-        changedButton = false;
-      });
-    }
-  }
+class _MainPage extends State<MainPage> {
+  String mobNumber = '';
+  String searchNumber = 'N';
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 150,
-              ),
-              Text("Welcome",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  )),
-              SizedBox(
-                height: 50,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: tokenController,
-                      decoration: InputDecoration(
-                        hintText: "Truecaller Auth Token",
-                        labelText: "Token",
+    final trueCallerToken =
+        ModalRoute.of(context)!.settings.arguments as String;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('BaseCaller'),
+        backgroundColor: Colors.blueAccent,
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          /** Card Widget **/
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Search',
+                      suffixIcon: new IconButton(
+                        icon: new Icon(Icons.search),
+                        onPressed: () {
+                          print('set true');
+                          searchNumber = 'Y';
+                          setState(() {
+                          });
+                        },
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Token cannot be empty";
+                    ),
+                    onChanged: (value) {
+                      this.mobNumber = value;
+                      setState(() {});
+                    },
+                  ),
+                  SizedBox(height: 10),
+                  SingleChildScrollView(
+                    child: FutureBuilder<String>(
+                      future: (searchNumber=='Y')
+                          ? MyHttpCalls.fetchDetails(mobNumber, trueCallerToken)
+                          : null,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<String> snapshot) {
+                        if (!snapshot.hasData) {
+                          // while data is loading:
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          // data loaded:
+                          this.searchNumber = 'N';
+                          final responseJson = snapshot.data;
+                          return Center(
+                            child: Text(responseJson!),
+                          );
                         }
-                        return null;
                       },
                     ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Material(
-                      color: Colors.blueAccent,
-                      borderRadius:
-                          BorderRadius.circular(changedButton ? 40 : 8),
-                      child: InkWell(
-                        onTap: () => moveToMain(context),
-                        child: AnimatedContainer(
-                          duration: Duration(seconds: 1),
-                          width: changedButton ? 40 : 120,
-                          height: 40,
-                          alignment: Alignment.center,
-                          child: changedButton
-                              ? Icon(Icons.done)
-                              : Text(
-                                  "Next",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 50),
-                    CheckboxListTile(
-                      title: Text("Dark Theme"),
-                      value: this.darkTheme,
-                      onChanged: (bool? value) async {
-                        setState(() {
-                          this.darkTheme = value!;
-                          EasyDynamicTheme.of(context)
-                              .changeTheme(dynamic: false, dark: value);
-                        });
-                      },
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
+      drawer: MyDrawer(),
     );
   }
 }
