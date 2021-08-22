@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:base_caller/models/response.dart';
 import 'package:base_caller/widgets/drawer.dart';
 import 'package:base_caller/widgets/httpCall.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +40,8 @@ class _MainPage extends State<MainPage> {
                       suffixIcon: new IconButton(
                         icon: new Icon(Icons.search),
                         onPressed: () {
-                          print('set true');
                           searchNumber = 'Y';
-                          setState(() {
-                          });
+                          setState(() {});
                         },
                       ),
                     ),
@@ -54,7 +53,7 @@ class _MainPage extends State<MainPage> {
                   SizedBox(height: 10),
                   SingleChildScrollView(
                     child: FutureBuilder<String>(
-                      future: (searchNumber=='Y')
+                      future: (searchNumber == 'Y')
                           ? MyHttpCalls.fetchDetails(mobNumber, trueCallerToken)
                           : null,
                       builder: (BuildContext context,
@@ -68,8 +67,29 @@ class _MainPage extends State<MainPage> {
                           // data loaded:
                           this.searchNumber = 'N';
                           final responseJson = snapshot.data;
+                          TrueCallerResponse response =
+                              TrueCallerResponse.fromJson(
+                                  jsonDecode(responseJson!));
                           return Center(
-                            child: Text(responseJson!),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 60.0,
+                                    backgroundImage:(response.image != null)?
+                                        NetworkImage(response.image.toString()):null,
+                                  ),
+                                  SizedBox(height: 50),
+                                  Text('Name - ${response.name}'),
+                                  SizedBox(height: 50),
+                                  Text('Number - ${response.phone!.number}, ${response.phone!.info}'),
+                                  SizedBox(height: 50),
+                                  Text('Email - ${response.email!.email}'),
+                                  SizedBox(height: 50),
+                                  Text('Location - ${response.address!.address}')
+                                ],
+                              ),
+                            ),
                           );
                         }
                       },

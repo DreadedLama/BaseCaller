@@ -33,17 +33,13 @@ class _HomeState extends State<HomePage> {
           key: _formKey,
           child: Column(
             children: [
-              SizedBox(
-                height: 150,
-              ),
+              SizedBox(height: 150),
               Text("Welcome",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   )),
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: 50),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
@@ -62,9 +58,7 @@ class _HomeState extends State<HomePage> {
                         return null;
                       },
                     ),
-                    SizedBox(
-                      height: 40,
-                    ),
+                    SizedBox(height: 40),
                     Material(
                       color: Colors.blueAccent,
                       borderRadius:
