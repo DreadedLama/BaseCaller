@@ -1,6 +1,7 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:system_alert_window/system_alert_window.dart';
 
 class MyDrawer extends StatefulWidget {
   @override
@@ -8,7 +9,8 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawer extends State<MyDrawer> {
-  bool value = false;
+  bool contacts = false;
+  bool displayOverOtherApps = false;
   bool darkTheme = false;
 
   @override
@@ -25,21 +27,32 @@ class _MyDrawer extends State<MyDrawer> {
               )),
           CheckboxListTile(
             title: Text("Read Contacts"),
-            value: this.value,
+            value: this.contacts,
             onChanged: (bool? value) async {
-              var status = await _checkPermission();
+              var status = await _checkContactPermission();
               if (status == PermissionStatus.granted) {
                 setState(() {
-                  this.value = true;
+                  this.contacts = true;
                 });
               } else {
-                var status = await _getPermission();
+                var status = await _getContactPermission();
                 if (status == PermissionStatus.granted) {
                   setState(() {
-                    this.value = value!;
+                    this.contacts = value!;
                   });
                 }
               }
+            },
+          ),
+          SizedBox(height: 50),
+          CheckboxListTile(
+            title: Text("Display over other apps"),
+            value: this.displayOverOtherApps,
+            onChanged: (bool? value) async {
+              _checkDisplayOverAppsPermission();
+                setState(() {
+                  this.displayOverOtherApps = true;
+                });
             },
           ),
           SizedBox(height: 50),
@@ -61,12 +74,12 @@ class _MyDrawer extends State<MyDrawer> {
 }
 
 //Check contacts permission
-Future<PermissionStatus> _checkPermission() async {
+Future<PermissionStatus> _checkContactPermission() async {
   return await Permission.contacts.status;
 }
 
 //Get contacts permission
-Future<PermissionStatus> _getPermission() async {
+Future<PermissionStatus> _getContactPermission() async {
   final PermissionStatus permission = await Permission.contacts.status;
   if (permission != PermissionStatus.granted) {
     final Map<Permission, PermissionStatus> permissionStatus =
@@ -75,4 +88,9 @@ Future<PermissionStatus> _getPermission() async {
   } else {
     return permission;
   }
+}
+
+
+Future<void> _checkDisplayOverAppsPermission() async {
+  await SystemAlertWindow.checkPermissions;
 }

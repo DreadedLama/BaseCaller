@@ -82,13 +82,26 @@ class _HomePage extends State<HomePage> {
                                         : null,
                                   ),
                                   SizedBox(height: 50),
-                                  Text('Name - ${response.name}'),
-                                  SizedBox(height: 50),
-                                  Text(
-                                      'Number - ${response.phone!.number}, ${response.phone!.info}'),
-                                  SizedBox(height: 50),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('Name - ${response.name}'),
+                                      Icon(
+                                          (response.isVerified == true)
+                                              ? Icons.verified_user
+                                              : null,
+                                          color: (response.isVerified == true)
+                                              ? Colors.blueAccent
+                                              : null),
+                                    ],
+                                  ),
+                                  SizedBox(height: 20),
+                                  Text('Number - ${response.phone!.number}'),
+                                  SizedBox(height: 20),
+                                  Text('${response.phone!.info}'),
+                                  SizedBox(height: 20),
                                   Text('Email - ${response.email!.email}'),
-                                  SizedBox(height: 50),
+                                  SizedBox(height: 20),
                                   Text(
                                       'Location - ${response.address!.address}')
                                 ],
