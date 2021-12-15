@@ -1,4 +1,4 @@
-# base_caller
+# BaseCaller
 
 Use truecaller token to retrieve data
 
