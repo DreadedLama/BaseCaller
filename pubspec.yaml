@@ -27,7 +27,7 @@ dependencies:
   contacts_service: ^0.6.1
   easy_dynamic_theme: ^2.2.0
   http: ^0.13.3
-  system_alert_window: ^0.5.0+1
+  shared_preferences: ^2.0.7
 
 flutter:
   uses-material-design: true

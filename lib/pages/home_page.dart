@@ -1,9 +1,12 @@
 import 'dart:convert';
 
 import 'package:base_caller/models/response.dart';
+import 'package:base_caller/utils/MySharedPreferences.dart';
 import 'package:base_caller/widgets/drawer.dart';
 import 'package:base_caller/widgets/httpCall.dart';
 import 'package:flutter/material.dart';
+
+String? trueCallerToken;
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,11 +17,15 @@ class _HomePage extends State<HomePage> {
   String mobNumber = '';
   String searchNumber = 'N';
 
+  stopBackwardRoute(BuildContext context) async {
+    await Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+  }
+
   @override
   Widget build(BuildContext context) {
-    final trueCallerToken =
-        ModalRoute.of(context)!.settings.arguments as String;
-
+    getTokenString();
+    stopBackwardRoute(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('BaseCaller'),
@@ -121,4 +128,9 @@ class _HomePage extends State<HomePage> {
       drawer: MyDrawer(),
     );
   }
+}
+
+void getTokenString() {
+  final callerToken = MySharedPreferences.instance.getStringValue("token");
+  callerToken.then((value) => trueCallerToken = value);
 }

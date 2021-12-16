@@ -180,7 +180,7 @@ packages:
     source: hosted
     version: "3.0.1"
   shared_preferences:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
@@ -247,13 +247,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  system_alert_window:
-    dependency: "direct main"
-    description:
-      name: system_alert_window
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.0+1"
   term_glyph:
     dependency: transitive
     description:

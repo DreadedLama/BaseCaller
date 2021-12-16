@@ -1,7 +1,6 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:system_alert_window/system_alert_window.dart';
 
 class MyDrawer extends StatefulWidget {
   @override
@@ -46,17 +45,6 @@ class _MyDrawer extends State<MyDrawer> {
           ),
           SizedBox(height: 50),
           CheckboxListTile(
-            title: Text("Display over other apps"),
-            value: this.displayOverOtherApps,
-            onChanged: (bool? value) async {
-              _checkDisplayOverAppsPermission();
-                setState(() {
-                  this.displayOverOtherApps = true;
-                });
-            },
-          ),
-          SizedBox(height: 50),
-          CheckboxListTile(
             title: Text("Dark Theme"),
             value: this.darkTheme,
             onChanged: (bool? value) async {
@@ -88,9 +76,4 @@ Future<PermissionStatus> _getContactPermission() async {
   } else {
     return permission;
   }
-}
-
-
-Future<void> _checkDisplayOverAppsPermission() async {
-  await SystemAlertWindow.checkPermissions;
 }

@@ -1,5 +1,7 @@
-import 'package:base_caller/utils/routes.dart';
+import 'package:base_caller/utils/MySharedPreferences.dart';
 import 'package:flutter/material.dart';
+
+import 'home_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -17,8 +19,10 @@ class _MainPage extends State<MainPage> {
         changedButton = true;
       });
       await Future.delayed(Duration(seconds: 1));
-      await Navigator.pushNamed(context, MyRoutes.homeRoute,
-          arguments: tokenController.text);
+      MySharedPreferences.instance
+          .setStringValue("token", tokenController.text);
+      await Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => HomePage()));
       setState(() {
         changedButton = false;
       });
@@ -27,6 +31,7 @@ class _MainPage extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    MySharedPreferences.instance.setBooleanValue("firstTimeOpen", true);
     return Material(
       child: SingleChildScrollView(
         child: Form(
