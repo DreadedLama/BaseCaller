@@ -3,9 +3,7 @@
 An app that fetches details from Truecaller and displays them in a simple UI. 
 Displays information like image, name, number, provider, email(if registered) and location. Also displays a blue badge if the number is registered.
 
-![1](https://user-images.githubusercontent.com/21179059/146418542-7ba397af-b05c-4677-b757-3ad4d4b32e0e.png)
-
-![2](https://user-images.githubusercontent.com/21179059/146418762-b84f1f9e-6793-4f71-b887-bd9c9d0e60ce.png)
+![1](https://user-images.githubusercontent.com/21179059/146418542-7ba397af-b05c-4677-b757-3ad4d4b32e0e.png)![2](https://user-images.githubusercontent.com/21179059/146418762-b84f1f9e-6793-4f71-b887-bd9c9d0e60ce.png)
 
 Use truecaller token to retrieve data
 
