@@ -8,7 +8,7 @@ Displays information like image, name, number, provider, email(if registered) an
 
 Use truecaller token to retrieve data
 
-### Getting Truecaller auth token
+### Getting Truecaller auth token (Deprecated, won't work now)
 
 (Tested with truecaller app version - 11.81.7)
 
